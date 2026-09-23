@@ -3,6 +3,7 @@ package service;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
+@Service
 public class Phase5Service5 {
 	
 	private final ObjectMapper objectMapper;
@@ -25,19 +27,78 @@ public class Phase5Service5 {
 		JsonNode request = xmlMapper.readTree(xml);
 		System.out.println(request.toPrettyString());
 		
+		JsonNode age = request.get("age");
+		
+		ObjectNode response = objectMapper.createObjectNode();
+		response.put("status", "FAILED");
+		ArrayNode errors = objectMapper.createArrayNode();
+		
+		
+		if (age == null || age.isEmpty()) {
+
+			ObjectNode ageExp = objectMapper.createObjectNode();
+			ageExp.put("field", "age");
+			ageExp.put("message", "Age is Missing in Request");
+            errors.add(ageExp);
+           
+		} else {
+
+		    String id = age.asText();
+
+		    if (id.trim().isEmpty()) {
+
+		        System.out.println("age is empty");
+
+		    } else {
+
+		        try {
+
+		            int number = Integer.parseInt(id);
+
+		            if (number < 18) {
+
+		            	ObjectNode errorage = objectMapper.createObjectNode();
+		            	errorage.put("field", "age");
+		            	errorage.put("message", "Age must be Greater than 18");
+                        errors.add(errorage);
+                       
+                        
+		            } else {
+
+		                System.out.println("age is valid");
+
+		            }
+
+		        } catch (NumberFormatException e) {
+
+		        	ObjectNode ageExcep = objectMapper.createObjectNode();
+		        	ageExcep.put("field", "age");
+		        	ageExcep.put("message", "Age must be an Integer");
+                    errors.add(ageExcep);
+		        }
+		    }
+		}
+		
 		JsonNode employeeId = request.get("employeeId");
 
 		if (employeeId == null) {
 
-		    System.out.println("employeeId is missing");
-
+		    ObjectNode employeeobj = objectMapper.createObjectNode();
+		    
+		    employeeobj.put("failed", "employee id");
+		    employeeobj.put("Message", "Employee id Must be Present in Request");
+		    errors.add(employeeobj);
 		} else {
 
 		    String id = employeeId.asText();
 
 		    if (id.trim().isEmpty()) {
 
-		        System.out.println("employeeId is empty");
+		    	ObjectNode employeeobjempty = objectMapper.createObjectNode();
+			    
+		    	employeeobjempty.put("failed", "Employee id");
+		    	employeeobjempty.put("Message", "Employee id cannot be Empty");
+		    	errors.add(employeeobjempty);
 
 		    } else {
 
@@ -47,7 +108,10 @@ public class Phase5Service5 {
 
 		            if (number <= 0) {
 
-		                System.out.println("employeeId must be positive");
+		            	ObjectNode EmpIdInt = objectMapper.createObjectNode();
+		            	EmpIdInt.put("field", "age");
+		            	EmpIdInt.put("message", "Employee Id Must be Positive");
+	                    errors.add(EmpIdInt);
 
 		            } else {
 
@@ -57,12 +121,58 @@ public class Phase5Service5 {
 
 		        } catch (NumberFormatException e) {
 
-		            System.out.println("employeeId must be an integer");
+		        	ObjectNode EmpIdIntExcep = objectMapper.createObjectNode();
+		        	EmpIdIntExcep.put("field", "age");
+		        	EmpIdIntExcep.put("message", "Employee Id Must be an Integer");
+                    errors.add(EmpIdIntExcep);
 
 		        }
 		    }
 		}
 		
+		JsonNode employee = request.get("employee");
+		if (employee == null || employee.asText().trim().isEmpty() || employee.isEmpty()) {
+
+		    ObjectNode employeenode = objectMapper.createObjectNode();
+		    employeenode.put("Feild" , "error");
+		    employeenode.put("Message ", "Employee cannot be Empty");
+		    errors.add(employeenode);
+
+		} else {
+		JsonNode department = employee.get("department");
+		if(department== null) {
+			 ObjectNode departmentobj = objectMapper.createObjectNode();
+			 departmentobj.put("Feild" , "error");
+			 departmentobj.put("Message ", "Employee cannot be Empty");
+			    errors.add(departmentobj);
+		}
+		JsonNode address = employee.get("address");
+		if ( address == null || address.asText().trim().isEmpty() || address.isEmpty()) {
+
+			 ObjectNode addressobj = objectMapper.createObjectNode();
+			 addressobj.put("Feild" , "error");
+			 addressobj.put("Message ", "Employee cannot be Empty");
+			    errors.add(addressobj);
+
+		}else {
+		JsonNode city = address.get("city");
+		if(city== null) {
+			 ObjectNode cityobj = objectMapper.createObjectNode();
+			 cityobj.put("Feild" , "error");
+			 cityobj.put("Message ", "Employee cannot be Empty");
+			    errors.add(cityobj);
+
+		}
+	
+		
+		}
+		}
+		if (errors.size() > 0) {
+
+	        response.set("errors", errors);
+
+	        return response.toPrettyString();
+	    }
 		
 		JsonNode converted = convert(request);
 		return converted.toPrettyString();
