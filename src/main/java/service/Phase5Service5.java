@@ -26,6 +26,9 @@ public class Phase5Service5 {
 		
 		JsonNode request = xmlMapper.readTree(xml);
 		System.out.println(request.toPrettyString());
+		if (request.has("Employee")) {
+		    request = request.get("Employee");
+		}
 		
 		JsonNode age = request.get("age");
 		
@@ -72,7 +75,7 @@ public class Phase5Service5 {
 
 		        	ObjectNode ageExcep = objectMapper.createObjectNode();
 		        	ageExcep.put("field", "age");
-		        	ageExcep.put("message", "Age must be an Integer");
+		        	ageExcep.put("message", "Age must be 18 or greater");
                     errors.add(ageExcep);
 		        }
 		    }
@@ -108,7 +111,7 @@ public class Phase5Service5 {
 		            if (number <= 0) {
 
 		            	ObjectNode EmpIdInt = objectMapper.createObjectNode();
-		            	EmpIdInt.put("field", "age");
+		            	EmpIdInt.put("field", "Employee Id");
 		            	EmpIdInt.put("message", "Employee Id Must be Positive");
 	                    errors.add(EmpIdInt);
 
@@ -121,7 +124,7 @@ public class Phase5Service5 {
 		        } catch (NumberFormatException e) {
 
 		        	ObjectNode EmpIdIntExcep = objectMapper.createObjectNode();
-		        	EmpIdIntExcep.put("field", "age");
+		        	EmpIdIntExcep.put("field", "Employee Id");
 		        	EmpIdIntExcep.put("message", "Employee Id Must be an Integer");
                     errors.add(EmpIdIntExcep);
 
@@ -142,7 +145,7 @@ public class Phase5Service5 {
 		if(department== null) {
 			 ObjectNode departmentobj = objectMapper.createObjectNode();
 			 departmentobj.put("Feild" , "error");
-			 departmentobj.put("Message ", "Employee cannot be Empty");
+			 departmentobj.put("Message ", "Department cannot be Empty");
 			    errors.add(departmentobj);
 		}
 		JsonNode address = employee.get("address");
@@ -150,7 +153,7 @@ public class Phase5Service5 {
 
 			 ObjectNode addressobj = objectMapper.createObjectNode();
 			 addressobj.put("Feild" , "error");
-			 addressobj.put("Message ", "Employee cannot be Empty");
+			 addressobj.put("Message ", "Address cannot be Empty");
 			    errors.add(addressobj);
 
 		}else {
@@ -158,7 +161,7 @@ public class Phase5Service5 {
 		if(city== null) {
 			 ObjectNode cityobj = objectMapper.createObjectNode();
 			 cityobj.put("Feild" , "error");
-			 cityobj.put("Message ", "Employee cannot be Empty");
+			 cityobj.put("Message ", "City cannot be Empty");
 			    errors.add(cityobj);
 
 		}
