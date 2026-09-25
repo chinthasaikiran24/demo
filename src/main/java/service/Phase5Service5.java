@@ -36,7 +36,7 @@ public class Phase5Service5 {
 		response.put("status", "FAILED");
 		ArrayNode errors = objectMapper.createArrayNode();
 			
-		if (age == null || age.isEmpty()) {
+		if (age == null || age.asText().trim().isEmpty()) {
 
 			ObjectNode ageExp = objectMapper.createObjectNode();
 			ageExp.put("field", "age");
@@ -56,6 +56,12 @@ public class Phase5Service5 {
 		        try {
 
 		            int number = Integer.parseInt(id);
+		            
+
+System.out.println("Age value = " + id);
+System.out.println("Age number = " + number);
+System.out.println("Age validation = " + (number < 18));
+
 
 		            if (number < 18) {
 

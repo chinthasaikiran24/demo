@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import service.Phase5Service5;
 
 
@@ -19,7 +20,7 @@ public class Phase5 {
     }
 
     @PostMapping("/obj")
-    public String call(@RequestBody String xml) throws Exception {
+    public String call(@Valid @RequestBody String xml) throws Exception {
 
         return phase5Service5.convertXml(xml);
     }
