@@ -240,4 +240,41 @@ public class Phase6Service {
 
         return response;
     }
+    
+    public EmployeePhase6  saveEmployee(EmployeePhase6 emp) {
+    	EmployeePhase6 savedEmp = employeeRepository.save(emp);
+    	return savedEmp;
+    	
+    }
+    
+    public EmployeePhase6  getEmployee(int empid) {
+    	EmployeePhase6 getEmp = employeeRepository.findById(empid)
+    			.orElseThrow(() -> new RuntimeException("Employee not Found"));
+    	return getEmp;
+    	
+    }
+    
+    public EmployeePhase6 updateEmployee(int empId,EmployeePhase6 employee) {
+    	
+    	EmployeePhase6 empl = employeeRepository.findById(empId)
+    			.orElseThrow();
+    	
+    	empl.setEmployeeId(employee.getEmployeeId());
+    	empl.setAge(employee.getAge());
+    	empl.setName(employee.getName());
+    	
+    	EmployeePhase6 updatedEmployee =
+                employeeRepository.save(empl);
+    	
+    	return empl;
+    	
+    }
+    
+    public void deleteEmployee(Integer employeeId) {
+    	
+    	EmployeePhase6 emplo = employeeRepository.findById(employeeId)
+    			 .orElseThrow();
+    	employeeRepository.delete(emplo);
+    }
+    
 }
