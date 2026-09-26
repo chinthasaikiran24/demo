@@ -19,7 +19,7 @@ import DTO.EmployeeRequestClass;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/Phase5Excep")
 public class Phase5Excep {
 
     private final ObjectMapper objectMapper;

@@ -57,12 +57,6 @@ public class Phase5Service5 {
 
 		            int number = Integer.parseInt(id);
 		            
-
-System.out.println("Age value = " + id);
-System.out.println("Age number = " + number);
-System.out.println("Age validation = " + (number < 18));
-
-
 		            if (number < 18) {
 
 		            	ObjectNode errorage = objectMapper.createObjectNode();

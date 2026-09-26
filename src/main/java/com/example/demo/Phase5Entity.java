@@ -28,7 +28,7 @@ import DTO.EmployeeRequestClass;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/employeeEntity")
+@RequestMapping("/Phase5Entity")
 public class Phase5Entity {
 
     private final ObjectMapper objectMapper;
