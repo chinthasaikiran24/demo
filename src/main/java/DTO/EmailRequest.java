@@ -1,10 +1,11 @@
-package com.example.demo;
+package DTO;
 
-public class EmailRequest  {
+public class EmailRequest {
 
     private String emailAddress;
     private String message;
 
+    // Getter and Setter for emailAddress
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -13,6 +14,7 @@ public class EmailRequest  {
         this.emailAddress = emailAddress;
     }
 
+    // Getter and Setter for message
     public String getMessage() {
         return message;
     }

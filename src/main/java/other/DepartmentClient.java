@@ -1,18 +1,23 @@
 package other;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
 
-import Entity.Department;
+@Component
+public class DepartmentClient {
 
-@FeignClient(
-    name = "department-service",
-    url = "http://localhost:8082"
-)
-public interface DepartmentClient {
+    private final RestClient restClient;
 
-    @GetMapping("/departments/{id}")
-    Department getDepartment(@PathVariable Long id);
+    public DepartmentClient(RestClient restClient) {
+        this.restClient = restClient;
+    }
 
+    public String getDepartment(long id) {
+
+        return restClient
+                .get()
+                .uri("http://department-service/departments/" + id)
+                .retrieve()
+                .body(String.class);
+    }
 }

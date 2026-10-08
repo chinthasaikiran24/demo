@@ -13,17 +13,34 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendRegistrationMail(String toEmail) {
+    public void sendEmail(String emailAddress, String message) {
 
-        SimpleMailMessage message =
-                new SimpleMailMessage();
+        SimpleMailMessage mail = new SimpleMailMessage();
 
-        message.setFrom("chinthasaikiran24@gmail.com");
-        message.setTo(toEmail);
-        message.setSubject("Registration Successful");
-        message.setText("Your Email_id has been successfully registered"
+        mail.setTo(emailAddress);
+        mail.setSubject("Message from Spring Boot");
+        mail.setText(message);
+
+        mailSender.send(mail);
+
+        System.out.println(
+                "Email sent successfully to: " + emailAddress
         );
-
-        mailSender.send(message);
+    }
+    
+    public void sendEmailNotify(String emailAddress, String message) {
+    	SimpleMailMessage msg = new SimpleMailMessage();
+    	
+    	msg.setTo(emailAddress);
+    	msg.setFrom("Spring-boot-learner@gmail.com");
+    	msg.setCc("chinthasaikiran3@gmail.com");
+    	msg.setSubject("Reg Your Springboot Learning");
+    	msg.setText(message);
+    	msg.setReplyTo("chintakiran8@gmail.com");
+    	
+    	mailSender.send(msg);
+    	System.out.println(
+                "Notification email sent successfully to: " + emailAddress
+        );
     }
 }

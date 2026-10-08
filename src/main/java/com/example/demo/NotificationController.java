@@ -16,14 +16,14 @@ public class NotificationController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> sendNotification(
-            @RequestBody EmailRequest request) {
-
-        emailService.sendRegistrationMail(
-                request.getEmailId());
-
-        return ResponseEntity.ok(
-                "Notification email sent successfully");
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<String> sendNotification(
+//            @RequestBody EmailRequest request) {
+//
+//        emailService.sendRegistrationMail(
+//                request.getEmailId());
+//
+//        return ResponseEntity.ok(
+//                "Notification email sent successfully");
+//    }
 }
