@@ -1,11 +1,13 @@
 package Entity;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
 @Entity
-public class Locker {
+public class Locker implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

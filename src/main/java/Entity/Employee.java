@@ -1,12 +1,13 @@
 package Entity;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Employee {
+public class Employee implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +21,14 @@ public class Employee {
 
     private Double salary;
 
+    private static final long serialVersionUID = 1L;
+    
     @ManyToOne
     @JoinColumn(name = "department_id")
     @JsonBackReference
     private Department department;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "employee_project",
             joinColumns = @JoinColumn(name = "employee_id"),
@@ -98,4 +101,5 @@ public class Employee {
     public void setLocker(Locker locker) {
         this.locker = locker;
     }
+
 }

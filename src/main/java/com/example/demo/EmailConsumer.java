@@ -53,8 +53,9 @@ public class EmailConsumer {
     		EmailRequest read = objectMapper.readValue(message, EmailRequest.class);
     		System.out.println("received message email "+read.getEmailAddress());
     		System.out.println("Received message "+read.getMessage());
+    		System.out.println("Received message "+read.getSubject());
     		emailService.sendEmailNotify(read.getEmailAddress(),
-    				read.getMessage());
+    				read.getMessage(),read.getSubject());
     		
     	}catch (Exception e) {
 

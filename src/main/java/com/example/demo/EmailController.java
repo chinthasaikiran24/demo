@@ -33,3 +33,38 @@ public class EmailController {
     	
     }
 }
+
+/*                POST /email/send
+                       │
+                       ▼
+                 Postman Request
+                       │
+                       ▼
+                EmailController
+                       │
+                       ▼
+                 EmailProducer
+                       │
+                       ▼
+                RabbitMQ Exchange
+                 email.exchange
+                       │
+              routing key: email.send
+                       │
+                       ▼
+                  email.queue
+                       │
+                       ▼
+                 EmailConsumer
+                       │
+                       ▼
+                  EmailService
+                       │
+                       ▼
+                JavaMailSender
+                       │
+                       ▼
+                 Gmail SMTP
+                       │
+                       ▼
+              Recipient's Inbox*/

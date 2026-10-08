@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import DTO.EmployeeRequest;
@@ -69,7 +70,7 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public Employee getById(@PathVariable Long id) {
 
-        return repository.findById(id).orElseThrow();
+        return service.getById(id);
     }
 
     @GetMapping("/all")
@@ -83,5 +84,21 @@ public class EmployeeController {
             @RequestBody EmployeeRequest request) {
 
         return service.saveEmployee(request);
+    }
+    
+    @PutMapping("/{id}")
+    public Employee updateEmployee(
+            @PathVariable Long id,
+            @RequestBody EmployeeRequest request) {
+
+        return service.updateEmployee(id, request);
+    }
+    
+    @DeleteMapping("/{id}")
+    public String deleteEmployee(@PathVariable Long id) {
+
+        service.deleteEmployee(id);
+
+        return "Employee " + id + " deleted successfully";
     }
 }

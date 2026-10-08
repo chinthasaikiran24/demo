@@ -28,13 +28,13 @@ public class EmailService {
         );
     }
     
-    public void sendEmailNotify(String emailAddress, String message) {
+    public void sendEmailNotify(String emailAddress, String message,String subject) {
     	SimpleMailMessage msg = new SimpleMailMessage();
     	
     	msg.setTo(emailAddress);
     	msg.setFrom("Spring-boot-learner@gmail.com");
     	msg.setCc("chinthasaikiran3@gmail.com");
-    	msg.setSubject("Reg Your Springboot Learning");
+    	msg.setSubject(subject);
     	msg.setText(message);
     	msg.setReplyTo("chintakiran8@gmail.com");
     	

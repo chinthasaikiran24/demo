@@ -1,12 +1,14 @@
 package Entity;
 
 import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Department {
+public class Department implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
